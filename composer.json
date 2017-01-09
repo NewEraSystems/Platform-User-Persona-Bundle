@@ -19,7 +19,7 @@
         "digitalstate/platform-widget-bundle" : "dev-master"
     },
     "autoload": {
-        "psr-0": { "Ds\\Bundle\\UserPersonaBundle": "" }
+        "psr-4": { "Ds\\Bundle\\UserPersonaBundle\\": "" }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
