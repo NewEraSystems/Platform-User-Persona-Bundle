@@ -2,7 +2,7 @@
 
 namespace Ds\Bundle\UserPersonaBundle\Controller\Api\Rest;
 
-use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
+use Ds\Bundle\ApiBundle\Controller\Api\Rest\AbstractController;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
@@ -17,7 +17,7 @@ use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
  * @Route("/user")
  * @NamePrefix("ds_userpersona_api_rest_")
  */
-class PersonaController extends RestController
+class PersonaController extends AbstractController
 {
     /**
      * Get collection action
@@ -104,5 +104,21 @@ class PersonaController extends RestController
     public function getManager()
     {
         return $this->get('ds.userpersona.manager.persona');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function transformEntityField($field, &$value)
+    {
+        switch ($field) {
+            case 'definition':
+            case 'user':
+                $value = $this->transformEntityToId($value);
+                break;
+
+            default:
+                parent::transformEntityField($field, $value);
+        }
     }
 }
